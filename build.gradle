@@ -53,3 +53,13 @@ jacocoTestCoverageVerification {
         }
     }
 }
+
+javadoc {
+    options.encoding = 'UTF-8'
+    options.charSet = 'UTF-8'
+    options.author = true
+    options.version = true
+    options.use = true
+    options.windowTitle = 'Coffee Order System API'
+    options.docTitle = 'Coffee Order System API Documentation'
+}

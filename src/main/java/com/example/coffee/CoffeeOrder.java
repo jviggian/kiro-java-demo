@@ -6,6 +6,10 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Represents a coffee order with size, grind type, coffee type, and optional additions.
+ * Each order is assigned a unique identifier upon creation.
+ */
 public class CoffeeOrder {
     private final String orderId;
     private final Size size;
@@ -13,6 +17,15 @@ public class CoffeeOrder {
     private final CoffeeType coffeeType;
     private final Set<Addition> additions;
 
+    /**
+     * Creates a new coffee order with the specified parameters.
+     * 
+     * @param size the size of the coffee order (cannot be null)
+     * @param grindType the grind type for the coffee (cannot be null)
+     * @param coffeeType the type of coffee (cannot be null)
+     * @param additions optional set of additions; null is treated as empty set
+     * @throws NullPointerException if size, grindType, or coffeeType is null
+     */
     public CoffeeOrder(Size size, GrindType grindType, CoffeeType coffeeType, 
                        Set<Addition> additions) {
         this.orderId = UUID.randomUUID().toString();
@@ -22,22 +35,47 @@ public class CoffeeOrder {
         this.additions = additions == null ? new HashSet<>() : new HashSet<>(additions);
     }
 
+    /**
+     * Gets the unique identifier for this order.
+     * 
+     * @return the order ID as a string
+     */
     public String getOrderId() {
         return orderId;
     }
 
+    /**
+     * Gets the size of this coffee order.
+     * 
+     * @return the size of the order
+     */
     public Size getSize() {
         return size;
     }
 
+    /**
+     * Gets the grind type for this coffee order.
+     * 
+     * @return the grind type
+     */
     public GrindType getGrindType() {
         return grindType;
     }
 
+    /**
+     * Gets the coffee type for this order.
+     * 
+     * @return the coffee type
+     */
     public CoffeeType getCoffeeType() {
         return coffeeType;
     }
 
+    /**
+     * Gets an immutable set of additions for this order.
+     * 
+     * @return an unmodifiable set of additions
+     */
     public Set<Addition> getAdditions() {
         return Collections.unmodifiableSet(additions);
     }

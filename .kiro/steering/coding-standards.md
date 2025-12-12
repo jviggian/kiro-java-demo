@@ -12,6 +12,7 @@ inclusion: always
 - Maximum line length: 88 characters
 - Use type hints for all function parameters and return values
 - Follow naming conventions
+- Use Javadoc notation for documenting functions
 
 ## Error Handling
 - Always use specific exception types

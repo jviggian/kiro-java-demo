@@ -5,25 +5,46 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
+/**
+ * Interactive terminal application for managing coffee orders.
+ * Provides a menu-driven interface for creating and viewing orders.
+ */
 public class CoffeeOrderTerminal {
     private final OrderCollection orderCollection;
     private final Scanner scanner;
 
+    /**
+     * Creates a new terminal with default dependencies.
+     */
     public CoffeeOrderTerminal() {
         this.orderCollection = new OrderCollection();
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Creates a new terminal with provided dependencies for testing.
+     * 
+     * @param orderCollection the order collection to use
+     * @param scanner the scanner for input
+     */
     public CoffeeOrderTerminal(OrderCollection orderCollection, Scanner scanner) {
         this.orderCollection = orderCollection;
         this.scanner = scanner;
     }
 
+    /**
+     * Main entry point for the coffee order terminal application.
+     * 
+     * @param args command line arguments (not used)
+     */
     public static void main(String[] args) {
         CoffeeOrderTerminal terminal = new CoffeeOrderTerminal();
         terminal.run();
     }
 
+    /**
+     * Runs the main application loop, displaying menus and handling user input.
+     */
     public void run() {
         System.out.println("=== Coffee Order System ===");
         
@@ -201,6 +222,11 @@ public class CoffeeOrderTerminal {
         }
     }
 
+    /**
+     * Gets the order collection used by this terminal.
+     * 
+     * @return the order collection
+     */
     public OrderCollection getOrderCollection() {
         return orderCollection;
     }
