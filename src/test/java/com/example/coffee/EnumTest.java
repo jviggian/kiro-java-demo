@@ -35,7 +35,8 @@ class EnumTest {
     @Test
     @DisplayName("GrindType enum should have correct values")
     void grindTypeEnumShouldHaveCorrectValues() {
-        assertEquals(5, GrindType.values().length);
+        assertEquals(6, GrindType.values().length);
+        assertNotNull(GrindType.valueOf("NONE"));
         assertNotNull(GrindType.valueOf("WHOLE_BEAN"));
         assertNotNull(GrindType.valueOf("COARSE"));
         assertNotNull(GrindType.valueOf("MEDIUM"));
@@ -46,6 +47,7 @@ class EnumTest {
     @Test
     @DisplayName("GrindType enum should have correct display names")
     void grindTypeEnumShouldHaveCorrectDisplayNames() {
+        assertEquals("None", GrindType.NONE.getDisplayName());
         assertEquals("Whole Bean", GrindType.WHOLE_BEAN.getDisplayName());
         assertEquals("Coarse", GrindType.COARSE.getDisplayName());
         assertEquals("Medium", GrindType.MEDIUM.getDisplayName());
@@ -56,6 +58,7 @@ class EnumTest {
     @Test
     @DisplayName("GrindType enum toString should return display name")
     void grindTypeEnumToStringShouldReturnDisplayName() {
+        assertEquals("None", GrindType.NONE.toString());
         assertEquals("Whole Bean", GrindType.WHOLE_BEAN.toString());
         assertEquals("Coarse", GrindType.COARSE.toString());
         assertEquals("Medium", GrindType.MEDIUM.toString());
@@ -66,11 +69,17 @@ class EnumTest {
     @Test
     @DisplayName("CoffeeType enum should have correct values")
     void coffeeTypeEnumShouldHaveCorrectValues() {
-        assertEquals(4, CoffeeType.values().length);
+        assertEquals(10, CoffeeType.values().length);
         assertNotNull(CoffeeType.valueOf("ESPRESSO"));
         assertNotNull(CoffeeType.valueOf("ARABICA"));
         assertNotNull(CoffeeType.valueOf("ROBUSTA"));
         assertNotNull(CoffeeType.valueOf("BLEND"));
+        assertNotNull(CoffeeType.valueOf("PEPSI"));
+        assertNotNull(CoffeeType.valueOf("COKE"));
+        assertNotNull(CoffeeType.valueOf("SPRITE"));
+        assertNotNull(CoffeeType.valueOf("FANTA"));
+        assertNotNull(CoffeeType.valueOf("DR_PEPPER"));
+        assertNotNull(CoffeeType.valueOf("MOUNTAIN_DEW"));
     }
 
     @Test
@@ -80,6 +89,12 @@ class EnumTest {
         assertEquals("Arabica", CoffeeType.ARABICA.getDisplayName());
         assertEquals("Robusta", CoffeeType.ROBUSTA.getDisplayName());
         assertEquals("Blend", CoffeeType.BLEND.getDisplayName());
+        assertEquals("Pepsi", CoffeeType.PEPSI.getDisplayName());
+        assertEquals("Coke", CoffeeType.COKE.getDisplayName());
+        assertEquals("Sprite", CoffeeType.SPRITE.getDisplayName());
+        assertEquals("Fanta", CoffeeType.FANTA.getDisplayName());
+        assertEquals("Dr Pepper", CoffeeType.DR_PEPPER.getDisplayName());
+        assertEquals("Mountain Dew", CoffeeType.MOUNTAIN_DEW.getDisplayName());
     }
 
     @Test
@@ -89,6 +104,27 @@ class EnumTest {
         assertEquals("Arabica", CoffeeType.ARABICA.toString());
         assertEquals("Robusta", CoffeeType.ROBUSTA.toString());
         assertEquals("Blend", CoffeeType.BLEND.toString());
+        assertEquals("Pepsi", CoffeeType.PEPSI.toString());
+        assertEquals("Coke", CoffeeType.COKE.toString());
+        assertEquals("Sprite", CoffeeType.SPRITE.toString());
+        assertEquals("Fanta", CoffeeType.FANTA.toString());
+        assertEquals("Dr Pepper", CoffeeType.DR_PEPPER.toString());
+        assertEquals("Mountain Dew", CoffeeType.MOUNTAIN_DEW.toString());
+    }
+
+    @Test
+    @DisplayName("CoffeeType isSoda should correctly identify soda types")
+    void coffeeTypeIsSodaShouldCorrectlyIdentifySodaTypes() {
+        assertFalse(CoffeeType.ESPRESSO.isSoda());
+        assertFalse(CoffeeType.ARABICA.isSoda());
+        assertFalse(CoffeeType.ROBUSTA.isSoda());
+        assertFalse(CoffeeType.BLEND.isSoda());
+        assertTrue(CoffeeType.PEPSI.isSoda());
+        assertTrue(CoffeeType.COKE.isSoda());
+        assertTrue(CoffeeType.SPRITE.isSoda());
+        assertTrue(CoffeeType.FANTA.isSoda());
+        assertTrue(CoffeeType.DR_PEPPER.isSoda());
+        assertTrue(CoffeeType.MOUNTAIN_DEW.isSoda());
     }
 
     @Test

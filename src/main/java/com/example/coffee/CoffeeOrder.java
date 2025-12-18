@@ -98,7 +98,9 @@ public class CoffeeOrder {
         StringBuilder sb = new StringBuilder();
         sb.append("Order ID: ").append(orderId).append("\n");
         sb.append("  Size: ").append(size).append("\n");
-        sb.append("  Grind Type: ").append(grindType).append("\n");
+        if (grindType != GrindType.NONE) {
+            sb.append("  Grind Type: ").append(grindType).append("\n");
+        }
         sb.append("  Coffee Type: ").append(coffeeType).append("\n");
         if (!additions.isEmpty()) {
             sb.append("  Additions: ");

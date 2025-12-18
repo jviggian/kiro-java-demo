@@ -90,11 +90,17 @@ public class CoffeeOrderTerminal {
         Size size = selectSize();
         if (size == null) return;
         
-        GrindType grindType = selectGrindType();
-        if (grindType == null) return;
-        
         CoffeeType coffeeType = selectCoffeeType();
         if (coffeeType == null) return;
+        
+        GrindType grindType;
+        if (coffeeType.isSoda()) {
+            grindType = GrindType.NONE;
+            System.out.println("Grind type automatically set to 'None' for soda orders.");
+        } else {
+            grindType = selectGrindType();
+            if (grindType == null) return;
+        }
         
         Set<Addition> additions = selectAdditions();
         
