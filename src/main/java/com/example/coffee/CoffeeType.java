@@ -1,9 +1,9 @@
 package com.example.coffee;
 
 /**
- * Represents the available coffee types and soda flavors for orders.
+ * Represents the available coffee types for orders.
  */
-public enum CoffeeType {
+public enum CoffeeType implements BeverageType {
     /** Espresso coffee type. */
     ESPRESSO("Espresso"),
     /** Arabica coffee beans. */
@@ -11,19 +11,7 @@ public enum CoffeeType {
     /** Robusta coffee beans. */
     ROBUSTA("Robusta"),
     /** Coffee blend. */
-    BLEND("Blend"),
-    /** Pepsi soda. */
-    PEPSI("Pepsi"),
-    /** Coke soda. */
-    COKE("Coke"),
-    /** Sprite soda. */
-    SPRITE("Sprite"),
-    /** Fanta soda. */
-    FANTA("Fanta"),
-    /** Dr Pepper soda. */
-    DR_PEPPER("Dr Pepper"),
-    /** Mountain Dew soda. */
-    MOUNTAIN_DEW("Mountain Dew");
+    BLEND("Blend");
 
     private final String displayName;
 
@@ -41,18 +29,9 @@ public enum CoffeeType {
      * 
      * @return the human-readable name
      */
+    @Override
     public String getDisplayName() {
         return displayName;
-    }
-
-    /**
-     * Determines if this is a soda type.
-     * 
-     * @return true if this is a soda, false if it's a coffee type
-     */
-    public boolean isSoda() {
-        return this == PEPSI || this == COKE || this == SPRITE || 
-               this == FANTA || this == DR_PEPPER || this == MOUNTAIN_DEW;
     }
 
     @Override

@@ -284,15 +284,15 @@ class CoffeeOrderTest {
         CoffeeOrder order = new CoffeeOrder(
             Size.LARGE,
             GrindType.NONE,
-            CoffeeType.PEPSI,
+            SodaType.PEPSI,
             new HashSet<>()
         );
 
         assertNotNull(order.getOrderId());
         assertEquals(Size.LARGE, order.getSize());
         assertEquals(GrindType.NONE, order.getGrindType());
-        assertEquals(CoffeeType.PEPSI, order.getCoffeeType());
-        assertTrue(order.getCoffeeType().isSoda());
+        assertEquals(SodaType.PEPSI, order.getBeverageType());
+        assertTrue(order.getBeverageType() instanceof SodaType);
     }
 
     @Test
@@ -301,7 +301,7 @@ class CoffeeOrderTest {
         CoffeeOrder order = new CoffeeOrder(
             Size.MEDIUM,
             GrindType.NONE,
-            CoffeeType.COKE,
+            SodaType.COKE,
             new HashSet<>()
         );
 
@@ -309,20 +309,20 @@ class CoffeeOrderTest {
         assertTrue(orderString.contains("Order ID:"));
         assertTrue(orderString.contains("Size: Medium"));
         assertFalse(orderString.contains("Grind Type: None"));
-        assertTrue(orderString.contains("Coffee Type: Coke"));
+        assertTrue(orderString.contains("Soda Type: Coke"));
     }
 
     @ParameterizedTest
-    @EnumSource(value = CoffeeType.class, names = {"PEPSI", "COKE", "SPRITE", "FANTA", "DR_PEPPER", "MOUNTAIN_DEW"})
+    @EnumSource(SodaType.class)
     @DisplayName("Should accept all soda type values")
-    void shouldAcceptAllSodaTypeValues(CoffeeType sodaType) {
+    void shouldAcceptAllSodaTypeValues(SodaType sodaType) {
         CoffeeOrder order = new CoffeeOrder(
             Size.LARGE,
             GrindType.NONE,
             sodaType,
             new HashSet<>()
         );
-        assertEquals(sodaType, order.getCoffeeType());
-        assertTrue(order.getCoffeeType().isSoda());
+        assertEquals(sodaType, order.getBeverageType());
+        assertTrue(order.getBeverageType() instanceof SodaType);
     }
 }

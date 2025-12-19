@@ -69,17 +69,11 @@ class EnumTest {
     @Test
     @DisplayName("CoffeeType enum should have correct values")
     void coffeeTypeEnumShouldHaveCorrectValues() {
-        assertEquals(10, CoffeeType.values().length);
+        assertEquals(4, CoffeeType.values().length);
         assertNotNull(CoffeeType.valueOf("ESPRESSO"));
         assertNotNull(CoffeeType.valueOf("ARABICA"));
         assertNotNull(CoffeeType.valueOf("ROBUSTA"));
         assertNotNull(CoffeeType.valueOf("BLEND"));
-        assertNotNull(CoffeeType.valueOf("PEPSI"));
-        assertNotNull(CoffeeType.valueOf("COKE"));
-        assertNotNull(CoffeeType.valueOf("SPRITE"));
-        assertNotNull(CoffeeType.valueOf("FANTA"));
-        assertNotNull(CoffeeType.valueOf("DR_PEPPER"));
-        assertNotNull(CoffeeType.valueOf("MOUNTAIN_DEW"));
     }
 
     @Test
@@ -89,12 +83,6 @@ class EnumTest {
         assertEquals("Arabica", CoffeeType.ARABICA.getDisplayName());
         assertEquals("Robusta", CoffeeType.ROBUSTA.getDisplayName());
         assertEquals("Blend", CoffeeType.BLEND.getDisplayName());
-        assertEquals("Pepsi", CoffeeType.PEPSI.getDisplayName());
-        assertEquals("Coke", CoffeeType.COKE.getDisplayName());
-        assertEquals("Sprite", CoffeeType.SPRITE.getDisplayName());
-        assertEquals("Fanta", CoffeeType.FANTA.getDisplayName());
-        assertEquals("Dr Pepper", CoffeeType.DR_PEPPER.getDisplayName());
-        assertEquals("Mountain Dew", CoffeeType.MOUNTAIN_DEW.getDisplayName());
     }
 
     @Test
@@ -104,27 +92,40 @@ class EnumTest {
         assertEquals("Arabica", CoffeeType.ARABICA.toString());
         assertEquals("Robusta", CoffeeType.ROBUSTA.toString());
         assertEquals("Blend", CoffeeType.BLEND.toString());
-        assertEquals("Pepsi", CoffeeType.PEPSI.toString());
-        assertEquals("Coke", CoffeeType.COKE.toString());
-        assertEquals("Sprite", CoffeeType.SPRITE.toString());
-        assertEquals("Fanta", CoffeeType.FANTA.toString());
-        assertEquals("Dr Pepper", CoffeeType.DR_PEPPER.toString());
-        assertEquals("Mountain Dew", CoffeeType.MOUNTAIN_DEW.toString());
     }
 
     @Test
-    @DisplayName("CoffeeType isSoda should correctly identify soda types")
-    void coffeeTypeIsSodaShouldCorrectlyIdentifySodaTypes() {
-        assertFalse(CoffeeType.ESPRESSO.isSoda());
-        assertFalse(CoffeeType.ARABICA.isSoda());
-        assertFalse(CoffeeType.ROBUSTA.isSoda());
-        assertFalse(CoffeeType.BLEND.isSoda());
-        assertTrue(CoffeeType.PEPSI.isSoda());
-        assertTrue(CoffeeType.COKE.isSoda());
-        assertTrue(CoffeeType.SPRITE.isSoda());
-        assertTrue(CoffeeType.FANTA.isSoda());
-        assertTrue(CoffeeType.DR_PEPPER.isSoda());
-        assertTrue(CoffeeType.MOUNTAIN_DEW.isSoda());
+    @DisplayName("SodaType enum should have correct values")
+    void sodaTypeEnumShouldHaveCorrectValues() {
+        assertEquals(6, SodaType.values().length);
+        assertNotNull(SodaType.valueOf("PEPSI"));
+        assertNotNull(SodaType.valueOf("COKE"));
+        assertNotNull(SodaType.valueOf("SPRITE"));
+        assertNotNull(SodaType.valueOf("FANTA"));
+        assertNotNull(SodaType.valueOf("DR_PEPPER"));
+        assertNotNull(SodaType.valueOf("MOUNTAIN_DEW"));
+    }
+
+    @Test
+    @DisplayName("SodaType enum should have correct display names")
+    void sodaTypeEnumShouldHaveCorrectDisplayNames() {
+        assertEquals("Pepsi", SodaType.PEPSI.getDisplayName());
+        assertEquals("Coke", SodaType.COKE.getDisplayName());
+        assertEquals("Sprite", SodaType.SPRITE.getDisplayName());
+        assertEquals("Fanta", SodaType.FANTA.getDisplayName());
+        assertEquals("Dr Pepper", SodaType.DR_PEPPER.getDisplayName());
+        assertEquals("Mountain Dew", SodaType.MOUNTAIN_DEW.getDisplayName());
+    }
+
+    @Test
+    @DisplayName("SodaType enum toString should return display name")
+    void sodaTypeEnumToStringShouldReturnDisplayName() {
+        assertEquals("Pepsi", SodaType.PEPSI.toString());
+        assertEquals("Coke", SodaType.COKE.toString());
+        assertEquals("Sprite", SodaType.SPRITE.toString());
+        assertEquals("Fanta", SodaType.FANTA.toString());
+        assertEquals("Dr Pepper", SodaType.DR_PEPPER.toString());
+        assertEquals("Mountain Dew", SodaType.MOUNTAIN_DEW.toString());
     }
 
     @Test
