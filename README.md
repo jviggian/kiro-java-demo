@@ -1,15 +1,17 @@
 # Coffee Order System
 
-A terminal-based Java application for managing coffee orders.
+A terminal-based Java application for managing coffee and soda orders.
 
 ## Features
 
-- Create coffee orders with customizable properties:
+- Create beverage orders with customizable properties:
   - Size (Small, Medium, Large)
-  - Grind type (Whole Bean, Coarse, Medium, Fine, Extra Fine)
-  - Coffee type (Espresso, Arabica, Robusta, Blend)
+  - Grind type (Whole Bean, Coarse, Medium, Fine, Extra Fine, None)
+  - Coffee types (Espresso, Arabica, Robusta, Blend)
+  - Soda flavors (Pepsi, Coke, Sprite, Fanta, Dr Pepper, Mountain Dew)
   - Additions (Milk, Sugar, Cream, Vanilla, Caramel)
 - View all orders
+- Automatic handling of grind type for soda orders (set to None)
 - Comprehensive unit tests with high coverage
 
 ## Requirements
@@ -103,20 +105,20 @@ Select size:
 3. Large
 Enter choice (1-3): 2
 
-Select grind type:
-1. Whole Bean
-2. Coarse
-3. Medium
-4. Fine
-5. Extra Fine
-Enter choice (1-5): 3
-
 Select coffee type:
 1. Espresso
 2. Arabica
 3. Robusta
 4. Blend
-Enter choice (1-4): 2
+5. Pepsi
+6. Coke
+7. Sprite
+8. Fanta
+9. Dr Pepper
+10. Mountain Dew
+Enter choice (1-10): 6
+
+Grind type automatically set to 'None' for soda orders.
 
 Select additions (comma-separated, or press Enter for none):
 1. Milk
@@ -124,7 +126,7 @@ Select additions (comma-separated, or press Enter for none):
 3. Cream
 4. Vanilla
 5. Caramel
-Enter choices (e.g., 1,3,5): 1,2
+Enter choices (e.g., 1,3,5): 
 
 ✓ Order created successfully!
 Order ID: 550e8400-e29b-41d4-a716-446655440000

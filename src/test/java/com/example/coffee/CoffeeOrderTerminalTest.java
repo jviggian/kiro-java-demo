@@ -72,7 +72,8 @@ class CoffeeOrderTerminalTest {
     @Test
     @DisplayName("Should create new order with valid inputs")
     void shouldCreateNewOrderWithValidInputs() {
-        String input = "1\n1\n1\n1\n1\n3\n";
+        // Input: Main menu option 1, Size 1, Beverage category 1 (Coffee), Coffee type 1, Grind type 1, No additions, Exit
+        String input = "1\n1\n1\n1\n1\n\n3\n";
         Scanner scanner = new Scanner(input);
         CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(orderCollection, scanner);
         
@@ -86,7 +87,8 @@ class CoffeeOrderTerminalTest {
     @Test
     @DisplayName("Should create order with multiple additions")
     void shouldCreateOrderWithMultipleAdditions() {
-        String input = "1\n2\n3\n2\n1,2,3\n3\n";
+        // Input: Create order, Size 2, Beverage category 1 (Coffee), Coffee type 3, Grind type 2, Additions 1,2,3, Exit
+        String input = "1\n2\n1\n3\n2\n1,2,3\n3\n";
         Scanner scanner = new Scanner(input);
         CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(orderCollection, scanner);
         
@@ -100,7 +102,8 @@ class CoffeeOrderTerminalTest {
     @Test
     @DisplayName("Should create order with no additions")
     void shouldCreateOrderWithNoAdditions() {
-        String input = "1\n1\n1\n1\n\n3\n";
+        // Input: Create order, Size 1, Beverage category 1 (Coffee), Coffee type 1, Grind type 1, No additions, Exit
+        String input = "1\n1\n1\n1\n1\n\n3\n";
         Scanner scanner = new Scanner(input);
         CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(orderCollection, scanner);
         
@@ -114,7 +117,8 @@ class CoffeeOrderTerminalTest {
     @Test
     @DisplayName("Should handle invalid size input and retry")
     void shouldHandleInvalidSizeInputAndRetry() {
-        String input = "1\ninvalid\n99\n1\n1\n1\n\n3\n";
+        // Input: Create order, invalid size, retry with valid size 1, rest valid, Exit
+        String input = "1\ninvalid\n99\n1\n1\n1\n1\n\n3\n";
         Scanner scanner = new Scanner(input);
         CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(orderCollection, scanner);
         
@@ -128,7 +132,8 @@ class CoffeeOrderTerminalTest {
     @Test
     @DisplayName("Should handle invalid grind type input and retry")
     void shouldHandleInvalidGrindTypeInputAndRetry() {
-        String input = "1\n1\ninvalid\n100\n1\n1\n\n3\n";
+        // Input: Create order, Size 1, Beverage category 1 (Coffee), Coffee type 1, invalid grind, valid grind 1, Exit
+        String input = "1\n1\n1\n1\ninvalid\n100\n1\n\n3\n";
         Scanner scanner = new Scanner(input);
         CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(orderCollection, scanner);
         
@@ -142,7 +147,8 @@ class CoffeeOrderTerminalTest {
     @Test
     @DisplayName("Should handle invalid coffee type input and retry")
     void shouldHandleInvalidCoffeeTypeInputAndRetry() {
-        String input = "1\n1\n1\ninvalid\n0\n1\n\n3\n";
+        // Input: Create order, Size 1, Beverage category 1 (Coffee), invalid coffee type, retry, valid coffee type 1, Exit
+        String input = "1\n1\n1\ninvalid\n0\n1\n1\n\n3\n";
         Scanner scanner = new Scanner(input);
         CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(orderCollection, scanner);
         
@@ -156,7 +162,8 @@ class CoffeeOrderTerminalTest {
     @Test
     @DisplayName("Should handle invalid additions input gracefully")
     void shouldHandleInvalidAdditionsInputGracefully() {
-        String input = "1\n1\n1\n1\n1,invalid,99,2\n3\n";
+        // Input: Create order, Size 1, Beverage category 1 (Coffee), Coffee type 1, Grind type 1, additions with invalid entries, Exit
+        String input = "1\n1\n1\n1\n1\n1,invalid,99,2\n3\n";
         Scanner scanner = new Scanner(input);
         CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(orderCollection, scanner);
         
@@ -207,7 +214,8 @@ class CoffeeOrderTerminalTest {
     @Test
     @DisplayName("Should create multiple orders")
     void shouldCreateMultipleOrders() {
-        String input = "1\n1\n1\n1\n\n1\n2\n2\n2\n\n3\n";
+        // Create two orders: first coffee, second soda
+        String input = "1\n1\n1\n1\n1\n\n1\n2\n2\n1\n\n3\n";
         Scanner scanner = new Scanner(input);
         CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(orderCollection, scanner);
         
@@ -237,7 +245,8 @@ class CoffeeOrderTerminalTest {
     void shouldHandleAllSizeOptions() {
         for (int i = 1; i <= Size.values().length; i++) {
             OrderCollection collection = new OrderCollection();
-            String input = String.format("1\n%d\n1\n1\n\n3\n", i);
+            // Create order with size i, coffee category, coffee type 1, grind type 1
+            String input = String.format("1\n%d\n1\n1\n1\n\n3\n", i);
             Scanner scanner = new Scanner(input);
             CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(collection, scanner);
             
@@ -252,7 +261,8 @@ class CoffeeOrderTerminalTest {
     void shouldHandleAllGrindTypeOptions() {
         for (int i = 1; i <= GrindType.values().length; i++) {
             OrderCollection collection = new OrderCollection();
-            String input = String.format("1\n1\n%d\n1\n\n3\n", i);
+            // Create order with size 1, coffee category, coffee type 1, grind type i
+            String input = String.format("1\n1\n1\n1\n%d\n\n3\n", i);
             Scanner scanner = new Scanner(input);
             CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(collection, scanner);
             
@@ -267,7 +277,8 @@ class CoffeeOrderTerminalTest {
     void shouldHandleAllCoffeeTypeOptions() {
         for (int i = 1; i <= CoffeeType.values().length; i++) {
             OrderCollection collection = new OrderCollection();
-            String input = String.format("1\n1\n1\n%d\n\n3\n", i);
+            // Create order with size 1, coffee category, coffee type i, grind type 1
+            String input = String.format("1\n1\n1\n%d\n1\n\n3\n", i);
             Scanner scanner = new Scanner(input);
             CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(collection, scanner);
             
@@ -278,9 +289,28 @@ class CoffeeOrderTerminalTest {
     }
 
     @Test
+    @DisplayName("Should handle all soda type options")
+    void shouldHandleAllSodaTypeOptions() {
+        for (int i = 1; i <= SodaType.values().length; i++) {
+            OrderCollection collection = new OrderCollection();
+            // Create order with size 1, soda category (2), soda type i, no additions
+            String input = String.format("1\n1\n2\n%d\n\n3\n", i);
+            Scanner scanner = new Scanner(input);
+            CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(collection, scanner);
+            
+            terminal.run();
+            
+            assertEquals(1, collection.getOrderCount());
+            CoffeeOrder order = collection.getAllOrders().get(0);
+            assertTrue(order.getBeverageType() instanceof SodaType);
+            assertEquals(GrindType.NONE, order.getGrindType());
+        }
+    }
+
+    @Test
     @DisplayName("Should display order ID after creation")
     void shouldDisplayOrderIdAfterCreation() {
-        String input = "1\n1\n1\n1\n\n3\n";
+        String input = "1\n1\n1\n1\n1\n\n3\n";
         Scanner scanner = new Scanner(input);
         CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(orderCollection, scanner);
         
@@ -289,5 +319,23 @@ class CoffeeOrderTerminalTest {
         String output = outputStream.toString();
         assertTrue(output.contains("Order ID:"));
         assertFalse(orderCollection.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Should automatically set grind type to NONE for soda orders")
+    void shouldAutomaticallySetGrindTypeToNoneForSodaOrders() {
+        // Create a soda order: size 1, soda category (2), soda type 1, no additions
+        String input = "1\n1\n2\n1\n\n3\n";
+        Scanner scanner = new Scanner(input);
+        CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(orderCollection, scanner);
+        
+        terminal.run();
+        
+        assertEquals(1, orderCollection.getOrderCount());
+        CoffeeOrder order = orderCollection.getAllOrders().get(0);
+        assertEquals(GrindType.NONE, order.getGrindType());
+        assertTrue(order.getBeverageType() instanceof SodaType);
+        String output = outputStream.toString();
+        assertTrue(output.contains("Grind type automatically set to 'None' for soda orders"));
     }
 }

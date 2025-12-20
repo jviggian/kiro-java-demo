@@ -3,7 +3,7 @@ package com.example.coffee;
 /**
  * Represents the available coffee types for orders.
  */
-public enum CoffeeType {
+public enum CoffeeType implements BeverageType {
     /** Espresso coffee type. */
     ESPRESSO("Espresso"),
     /** Arabica coffee beans. */
@@ -29,6 +29,7 @@ public enum CoffeeType {
      * 
      * @return the human-readable name
      */
+    @Override
     public String getDisplayName() {
         return displayName;
     }

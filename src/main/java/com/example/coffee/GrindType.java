@@ -4,6 +4,8 @@ package com.example.coffee;
  * Represents the available grind types for coffee orders.
  */
 public enum GrindType {
+    /** Not applicable (for non-coffee beverages). */
+    NONE("None"),
     /** Whole bean coffee, not ground. */
     WHOLE_BEAN("Whole Bean"),
     /** Coarse grind, suitable for French press. */

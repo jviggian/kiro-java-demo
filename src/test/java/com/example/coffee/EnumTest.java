@@ -35,7 +35,8 @@ class EnumTest {
     @Test
     @DisplayName("GrindType enum should have correct values")
     void grindTypeEnumShouldHaveCorrectValues() {
-        assertEquals(5, GrindType.values().length);
+        assertEquals(6, GrindType.values().length);
+        assertNotNull(GrindType.valueOf("NONE"));
         assertNotNull(GrindType.valueOf("WHOLE_BEAN"));
         assertNotNull(GrindType.valueOf("COARSE"));
         assertNotNull(GrindType.valueOf("MEDIUM"));
@@ -46,6 +47,7 @@ class EnumTest {
     @Test
     @DisplayName("GrindType enum should have correct display names")
     void grindTypeEnumShouldHaveCorrectDisplayNames() {
+        assertEquals("None", GrindType.NONE.getDisplayName());
         assertEquals("Whole Bean", GrindType.WHOLE_BEAN.getDisplayName());
         assertEquals("Coarse", GrindType.COARSE.getDisplayName());
         assertEquals("Medium", GrindType.MEDIUM.getDisplayName());
@@ -56,6 +58,7 @@ class EnumTest {
     @Test
     @DisplayName("GrindType enum toString should return display name")
     void grindTypeEnumToStringShouldReturnDisplayName() {
+        assertEquals("None", GrindType.NONE.toString());
         assertEquals("Whole Bean", GrindType.WHOLE_BEAN.toString());
         assertEquals("Coarse", GrindType.COARSE.toString());
         assertEquals("Medium", GrindType.MEDIUM.toString());
@@ -89,6 +92,40 @@ class EnumTest {
         assertEquals("Arabica", CoffeeType.ARABICA.toString());
         assertEquals("Robusta", CoffeeType.ROBUSTA.toString());
         assertEquals("Blend", CoffeeType.BLEND.toString());
+    }
+
+    @Test
+    @DisplayName("SodaType enum should have correct values")
+    void sodaTypeEnumShouldHaveCorrectValues() {
+        assertEquals(6, SodaType.values().length);
+        assertNotNull(SodaType.valueOf("PEPSI"));
+        assertNotNull(SodaType.valueOf("COKE"));
+        assertNotNull(SodaType.valueOf("SPRITE"));
+        assertNotNull(SodaType.valueOf("FANTA"));
+        assertNotNull(SodaType.valueOf("DR_PEPPER"));
+        assertNotNull(SodaType.valueOf("MOUNTAIN_DEW"));
+    }
+
+    @Test
+    @DisplayName("SodaType enum should have correct display names")
+    void sodaTypeEnumShouldHaveCorrectDisplayNames() {
+        assertEquals("Pepsi", SodaType.PEPSI.getDisplayName());
+        assertEquals("Coke", SodaType.COKE.getDisplayName());
+        assertEquals("Sprite", SodaType.SPRITE.getDisplayName());
+        assertEquals("Fanta", SodaType.FANTA.getDisplayName());
+        assertEquals("Dr Pepper", SodaType.DR_PEPPER.getDisplayName());
+        assertEquals("Mountain Dew", SodaType.MOUNTAIN_DEW.getDisplayName());
+    }
+
+    @Test
+    @DisplayName("SodaType enum toString should return display name")
+    void sodaTypeEnumToStringShouldReturnDisplayName() {
+        assertEquals("Pepsi", SodaType.PEPSI.toString());
+        assertEquals("Coke", SodaType.COKE.toString());
+        assertEquals("Sprite", SodaType.SPRITE.toString());
+        assertEquals("Fanta", SodaType.FANTA.toString());
+        assertEquals("Dr Pepper", SodaType.DR_PEPPER.toString());
+        assertEquals("Mountain Dew", SodaType.MOUNTAIN_DEW.toString());
     }
 
     @Test
