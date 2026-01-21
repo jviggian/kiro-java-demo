@@ -67,7 +67,7 @@ public class CoffeeOrderTerminal {
                     yield false;
                 }
                 default -> {
-                    System.out.println("Invalid choice. Please try again.\n");
+                    System.out.println("Invalid choice. Please try again.\\n");
                     yield true;
                 }
             };
@@ -77,7 +77,7 @@ public class CoffeeOrderTerminal {
     }
 
     private void displayMenu() {
-        System.out.println("\nWhat would you like to do?");
+        System.out.println("\\nWhat would you like to do?");
         System.out.println("1. Create new order");
         System.out.println("2. View all orders");
         System.out.println("3. Exit");
@@ -85,7 +85,7 @@ public class CoffeeOrderTerminal {
     }
 
     private void createNewOrder() {
-        System.out.println("\n=== Create New Order ===");
+        System.out.println("\\n=== Create New Order ===");
         
         Size size = selectSize();
         if (size == null) return;
@@ -94,9 +94,9 @@ public class CoffeeOrderTerminal {
         if (beverageType == null) return;
         
         GrindType grindType;
-        if (beverageType instanceof SodaType) {
+        if (beverageType instanceof SodaType || beverageType instanceof KoolaidType) {
             grindType = GrindType.NONE;
-            System.out.println("Grind type automatically set to 'None' for soda orders.");
+            System.out.println("Grind type automatically set to 'None' for soda/koolaid orders.");
         } else {
             grindType = selectGrindType();
             if (grindType == null) return;
@@ -107,13 +107,13 @@ public class CoffeeOrderTerminal {
         CoffeeOrder order = new CoffeeOrder(size, grindType, beverageType, additions);
         orderCollection.addOrder(order);
         
-        System.out.println("\n✓ Order created successfully!");
+        System.out.println("\\n✓ Order created successfully!");
         System.out.println("Order ID: " + order.getOrderId());
     }
 
     private Size selectSize() {
         while (true) {
-            System.out.println("\nSelect size:");
+            System.out.println("\\nSelect size:");
             Size[] sizes = Size.values();
             for (int i = 0; i < sizes.length; i++) {
                 System.out.println((i + 1) + ". " + sizes[i].getDisplayName());
@@ -136,7 +136,7 @@ public class CoffeeOrderTerminal {
 
     private GrindType selectGrindType() {
         while (true) {
-            System.out.println("\nSelect grind type:");
+            System.out.println("\\nSelect grind type:");
             GrindType[] grindTypes = GrindType.values();
             for (int i = 0; i < grindTypes.length; i++) {
                 System.out.println((i + 1) + ". " + grindTypes[i].getDisplayName());
@@ -159,10 +159,11 @@ public class CoffeeOrderTerminal {
 
     private BeverageType selectBeverageType() {
         while (true) {
-            System.out.println("\nSelect beverage category:");
+            System.out.println("\\nSelect beverage category:");
             System.out.println("1. Coffee");
             System.out.println("2. Soda");
-            System.out.print("Enter choice (1-2): ");
+            System.out.println("3. Koolaid");
+            System.out.print("Enter choice (1-3): ");
             
             String input = scanner.nextLine().trim();
             try {
@@ -171,8 +172,10 @@ public class CoffeeOrderTerminal {
                     return selectCoffeeType();
                 } else if (choice == 2) {
                     return selectSodaType();
+                } else if (choice == 3) {
+                    return selectKoolaidType();
                 } else {
-                    System.out.println("Invalid choice. Please enter 1 or 2.");
+                    System.out.println("Invalid choice. Please enter 1, 2, or 3.");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a number.");
@@ -182,7 +185,7 @@ public class CoffeeOrderTerminal {
 
     private CoffeeType selectCoffeeType() {
         while (true) {
-            System.out.println("\nSelect coffee type:");
+            System.out.println("\\nSelect coffee type:");
             CoffeeType[] coffeeTypes = CoffeeType.values();
             for (int i = 0; i < coffeeTypes.length; i++) {
                 System.out.println((i + 1) + ". " + coffeeTypes[i].getDisplayName());
@@ -205,7 +208,7 @@ public class CoffeeOrderTerminal {
 
     private SodaType selectSodaType() {
         while (true) {
-            System.out.println("\nSelect soda type:");
+            System.out.println("\\nSelect soda type:");
             SodaType[] sodaTypes = SodaType.values();
             for (int i = 0; i < sodaTypes.length; i++) {
                 System.out.println((i + 1) + ". " + sodaTypes[i].getDisplayName());
@@ -226,10 +229,33 @@ public class CoffeeOrderTerminal {
         }
     }
 
+    private KoolaidType selectKoolaidType() {
+        while (true) {
+            System.out.println("\\nSelect koolaid type:");
+            KoolaidType[] koolaidTypes = KoolaidType.values();
+            for (int i = 0; i < koolaidTypes.length; i++) {
+                System.out.println((i + 1) + ". " + koolaidTypes[i].getDisplayName());
+            }
+            System.out.print("Enter choice (1-" + koolaidTypes.length + "): ");
+            
+            String input = scanner.nextLine().trim();
+            try {
+                int choice = Integer.parseInt(input);
+                if (choice >= 1 && choice <= koolaidTypes.length) {
+                    return koolaidTypes[choice - 1];
+                }
+                System.out.println("Invalid choice. Please enter a number between 1 and " + 
+                                 koolaidTypes.length);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
+    }
+
     private Set<Addition> selectAdditions() {
         Set<Addition> selectedAdditions = new HashSet<>();
         
-        System.out.println("\nSelect additions (comma-separated, or press Enter for none):");
+        System.out.println("\\nSelect additions (comma-separated, or press Enter for none):");
         Addition[] additions = Addition.values();
         for (int i = 0; i < additions.length; i++) {
             System.out.println((i + 1) + ". " + additions[i].getDisplayName());
@@ -259,7 +285,7 @@ public class CoffeeOrderTerminal {
     }
 
     private void viewOrders() {
-        System.out.println("\n=== All Orders ===");
+        System.out.println("\\n=== All Orders ===");
         
         if (orderCollection.isEmpty()) {
             System.out.println("No orders found.");
