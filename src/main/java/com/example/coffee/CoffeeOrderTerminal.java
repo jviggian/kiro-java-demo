@@ -94,9 +94,9 @@ public class CoffeeOrderTerminal {
         if (beverageType == null) return;
         
         GrindType grindType;
-        if (beverageType instanceof SodaType) {
+        if (beverageType instanceof SodaType || beverageType instanceof KoolaidType) {
             grindType = GrindType.NONE;
-            System.out.println("Grind type automatically set to 'None' for soda orders.");
+            System.out.println("Grind type automatically set to 'None' for non-coffee orders.");
         } else {
             grindType = selectGrindType();
             if (grindType == null) return;
@@ -162,18 +162,21 @@ public class CoffeeOrderTerminal {
             System.out.println("\nSelect beverage category:");
             System.out.println("1. Coffee");
             System.out.println("2. Soda");
-            System.out.print("Enter choice (1-2): ");
+            System.out.println("3. Koolaid");
+            System.out.print("Enter choice (1-3): ");
             
             String input = scanner.nextLine().trim();
             try {
                 int choice = Integer.parseInt(input);
-                if (choice == 1) {
-                    return selectCoffeeType();
-                } else if (choice == 2) {
-                    return selectSodaType();
-                } else {
-                    System.out.println("Invalid choice. Please enter 1 or 2.");
-                }
+                return switch (choice) {
+                    case 1 -> selectCoffeeType();
+                    case 2 -> selectSodaType();
+                    case 3 -> selectKoolaidType();
+                    default -> {
+                        System.out.println("Invalid choice. Please enter 1, 2, or 3.");
+                        yield null;
+                    }
+                };
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a number.");
             }
@@ -220,6 +223,29 @@ public class CoffeeOrderTerminal {
                 }
                 System.out.println("Invalid choice. Please enter a number between 1 and " + 
                                  sodaTypes.length);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
+    }
+
+    private KoolaidType selectKoolaidType() {
+        while (true) {
+            System.out.println("\nSelect Koolaid type:");
+            KoolaidType[] koolaidTypes = KoolaidType.values();
+            for (int i = 0; i < koolaidTypes.length; i++) {
+                System.out.println((i + 1) + ". " + koolaidTypes[i].getDisplayName());
+            }
+            System.out.print("Enter choice (1-" + koolaidTypes.length + "): ");
+            
+            String input = scanner.nextLine().trim();
+            try {
+                int choice = Integer.parseInt(input);
+                if (choice >= 1 && choice <= koolaidTypes.length) {
+                    return koolaidTypes[choice - 1];
+                }
+                System.out.println("Invalid choice. Please enter a number between 1 and " + 
+                                 koolaidTypes.length);
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a number.");
             }
