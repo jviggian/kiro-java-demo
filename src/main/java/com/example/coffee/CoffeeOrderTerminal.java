@@ -5,46 +5,25 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-/**
- * Interactive terminal application for managing coffee orders.
- * Provides a menu-driven interface for creating and viewing orders.
- */
 public class CoffeeOrderTerminal {
     private final OrderCollection orderCollection;
     private final Scanner scanner;
 
-    /**
-     * Creates a new terminal with default dependencies.
-     */
     public CoffeeOrderTerminal() {
         this.orderCollection = new OrderCollection();
         this.scanner = new Scanner(System.in);
     }
 
-    /**
-     * Creates a new terminal with provided dependencies for testing.
-     * 
-     * @param orderCollection the order collection to use
-     * @param scanner the scanner for input
-     */
     public CoffeeOrderTerminal(OrderCollection orderCollection, Scanner scanner) {
         this.orderCollection = orderCollection;
         this.scanner = scanner;
     }
 
-    /**
-     * Main entry point for the coffee order terminal application.
-     * 
-     * @param args command line arguments (not used)
-     */
     public static void main(String[] args) {
         CoffeeOrderTerminal terminal = new CoffeeOrderTerminal();
         terminal.run();
     }
 
-    /**
-     * Runs the main application loop, displaying menus and handling user input.
-     */
     public void run() {
         System.out.println("=== Coffee Order System ===");
         
@@ -94,9 +73,9 @@ public class CoffeeOrderTerminal {
         if (beverageType == null) return;
         
         GrindType grindType;
-        if (beverageType instanceof SodaType) {
+        if (beverageType instanceof SodaType || beverageType instanceof KoolaidType) {
             grindType = GrindType.NONE;
-            System.out.println("Grind type automatically set to 'None' for soda orders.");
+            System.out.println("Grind type automatically set to 'None' for non-coffee orders.");
         } else {
             grindType = selectGrindType();
             if (grindType == null) return;
@@ -162,7 +141,8 @@ public class CoffeeOrderTerminal {
             System.out.println("\nSelect beverage category:");
             System.out.println("1. Coffee");
             System.out.println("2. Soda");
-            System.out.print("Enter choice (1-2): ");
+            System.out.println("3. Koolaid");
+            System.out.print("Enter choice (1-3): ");
             
             String input = scanner.nextLine().trim();
             try {
@@ -171,8 +151,10 @@ public class CoffeeOrderTerminal {
                     return selectCoffeeType();
                 } else if (choice == 2) {
                     return selectSodaType();
+                } else if (choice == 3) {
+                    return selectKoolaidType();
                 } else {
-                    System.out.println("Invalid choice. Please enter 1 or 2.");
+                    System.out.println("Invalid choice. Please enter 1, 2, or 3.");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a number.");
@@ -220,6 +202,29 @@ public class CoffeeOrderTerminal {
                 }
                 System.out.println("Invalid choice. Please enter a number between 1 and " + 
                                  sodaTypes.length);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
+    }
+
+    private KoolaidType selectKoolaidType() {
+        while (true) {
+            System.out.println("\nSelect koolaid type:");
+            KoolaidType[] koolaidTypes = KoolaidType.values();
+            for (int i = 0; i < koolaidTypes.length; i++) {
+                System.out.println((i + 1) + ". " + koolaidTypes[i].getDisplayName());
+            }
+            System.out.print("Enter choice (1-" + koolaidTypes.length + "): ");
+            
+            String input = scanner.nextLine().trim();
+            try {
+                int choice = Integer.parseInt(input);
+                if (choice >= 1 && choice <= koolaidTypes.length) {
+                    return koolaidTypes[choice - 1];
+                }
+                System.out.println("Invalid choice. Please enter a number between 1 and " + 
+                                 koolaidTypes.length);
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a number.");
             }
@@ -274,11 +279,6 @@ public class CoffeeOrderTerminal {
         }
     }
 
-    /**
-     * Gets the order collection used by this terminal.
-     * 
-     * @return the order collection
-     */
     public OrderCollection getOrderCollection() {
         return orderCollection;
     }
