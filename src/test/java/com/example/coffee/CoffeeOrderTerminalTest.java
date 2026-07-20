@@ -308,6 +308,73 @@ class CoffeeOrderTerminalTest {
     }
 
     @Test
+    @DisplayName("Should handle all Koolaid type options")
+    void shouldHandleAllKoolaidTypeOptions() {
+        for (int i = 1; i <= KoolaidType.values().length; i++) {
+            OrderCollection collection = new OrderCollection();
+            // Create order with size 1, Koolaid category (3), Koolaid flavor i, no additions
+            String input = String.format("1\n1\n3\n%d\n\n3\n", i);
+            Scanner scanner = new Scanner(input);
+            CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(collection, scanner);
+            
+            terminal.run();
+            
+            assertEquals(1, collection.getOrderCount());
+            CoffeeOrder order = collection.getAllOrders().get(0);
+            assertTrue(order.getBeverageType() instanceof KoolaidType);
+            assertEquals(GrindType.NONE, order.getGrindType());
+        }
+    }
+
+    @Test
+    @DisplayName("Should automatically set grind type to NONE for Koolaid orders")
+    void shouldAutomaticallySetGrindTypeToNoneForKoolaidOrders() {
+        // Create a Koolaid order: size 1, Koolaid category (3), Koolaid flavor 1, no additions
+        String input = "1\n1\n3\n1\n\n3\n";
+        Scanner scanner = new Scanner(input);
+        CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(orderCollection, scanner);
+        
+        terminal.run();
+        
+        assertEquals(1, orderCollection.getOrderCount());
+        CoffeeOrder order = orderCollection.getAllOrders().get(0);
+        assertEquals(GrindType.NONE, order.getGrindType());
+        assertTrue(order.getBeverageType() instanceof KoolaidType);
+        String output = outputStream.toString();
+        assertTrue(output.contains("Grind type automatically set to 'None' for Koolaid orders"));
+    }
+
+    @Test
+    @DisplayName("Should display Koolaid beverage category option")
+    void shouldDisplayKoolaidBeverageCategoryOption() {
+        // Enter create order, size 1, then exit-ish: we just need the category menu printed
+        String input = "1\n1\n3\n1\n\n3\n";
+        Scanner scanner = new Scanner(input);
+        CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(orderCollection, scanner);
+        
+        terminal.run();
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("3. Koolaid"));
+        assertTrue(output.contains("Select Koolaid flavor:"));
+    }
+
+    @Test
+    @DisplayName("Should handle invalid Koolaid type input and retry")
+    void shouldHandleInvalidKoolaidTypeInputAndRetry() {
+        // Input: Create order, Size 1, Koolaid category (3), invalid flavor, retry, valid flavor 1, no additions, Exit
+        String input = "1\n1\n3\ninvalid\n0\n1\n\n3\n";
+        Scanner scanner = new Scanner(input);
+        CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(orderCollection, scanner);
+        
+        terminal.run();
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("Invalid input") || output.contains("Invalid choice"));
+        assertEquals(1, orderCollection.getOrderCount());
+    }
+
+    @Test
     @DisplayName("Should display order ID after creation")
     void shouldDisplayOrderIdAfterCreation() {
         String input = "1\n1\n1\n1\n1\n\n3\n";

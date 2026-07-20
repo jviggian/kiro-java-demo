@@ -129,6 +129,42 @@ class EnumTest {
     }
 
     @Test
+    @DisplayName("KoolaidType enum should have correct values")
+    void koolaidTypeEnumShouldHaveCorrectValues() {
+        assertEquals(4, KoolaidType.values().length);
+        assertNotNull(KoolaidType.valueOf("PEACH"));
+        assertNotNull(KoolaidType.valueOf("KIWI"));
+        assertNotNull(KoolaidType.valueOf("FRUIT_PUNCH"));
+        assertNotNull(KoolaidType.valueOf("RASPBERRY"));
+    }
+
+    @Test
+    @DisplayName("KoolaidType enum should have correct display names")
+    void koolaidTypeEnumShouldHaveCorrectDisplayNames() {
+        assertEquals("Peach", KoolaidType.PEACH.getDisplayName());
+        assertEquals("Kiwi", KoolaidType.KIWI.getDisplayName());
+        assertEquals("Fruit Punch", KoolaidType.FRUIT_PUNCH.getDisplayName());
+        assertEquals("Raspberry", KoolaidType.RASPBERRY.getDisplayName());
+    }
+
+    @Test
+    @DisplayName("KoolaidType enum toString should return display name")
+    void koolaidTypeEnumToStringShouldReturnDisplayName() {
+        assertEquals("Peach", KoolaidType.PEACH.toString());
+        assertEquals("Kiwi", KoolaidType.KIWI.toString());
+        assertEquals("Fruit Punch", KoolaidType.FRUIT_PUNCH.toString());
+        assertEquals("Raspberry", KoolaidType.RASPBERRY.toString());
+    }
+
+    @Test
+    @DisplayName("KoolaidType should be a BeverageType")
+    void koolaidTypeShouldBeABeverageType() {
+        for (KoolaidType type : KoolaidType.values()) {
+            assertTrue(type instanceof BeverageType);
+        }
+    }
+
+    @Test
     @DisplayName("Addition enum should have correct values")
     void additionEnumShouldHaveCorrectValues() {
         assertEquals(5, Addition.values().length);

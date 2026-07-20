@@ -325,4 +325,65 @@ class CoffeeOrderTest {
         assertEquals(sodaType, order.getBeverageType());
         assertTrue(order.getBeverageType() instanceof SodaType);
     }
+
+    @Test
+    @DisplayName("Should create Koolaid order with NONE grind type")
+    void shouldCreateKoolaidOrderWithNoneGrindType() {
+        CoffeeOrder order = new CoffeeOrder(
+            Size.LARGE,
+            GrindType.NONE,
+            KoolaidType.PEACH,
+            new HashSet<>()
+        );
+
+        assertNotNull(order.getOrderId());
+        assertEquals(Size.LARGE, order.getSize());
+        assertEquals(GrindType.NONE, order.getGrindType());
+        assertEquals(KoolaidType.PEACH, order.getBeverageType());
+        assertTrue(order.getBeverageType() instanceof KoolaidType);
+    }
+
+    @Test
+    @DisplayName("Koolaid order getCoffeeType should return null")
+    void koolaidOrderGetCoffeeTypeShouldReturnNull() {
+        CoffeeOrder order = new CoffeeOrder(
+            Size.SMALL,
+            GrindType.NONE,
+            KoolaidType.KIWI,
+            new HashSet<>()
+        );
+
+        assertNull(order.getCoffeeType());
+    }
+
+    @Test
+    @DisplayName("Should create Koolaid order and show Koolaid Type in string representation")
+    void shouldShowKoolaidTypeInStringRepresentation() {
+        CoffeeOrder order = new CoffeeOrder(
+            Size.MEDIUM,
+            GrindType.NONE,
+            KoolaidType.FRUIT_PUNCH,
+            new HashSet<>()
+        );
+
+        String orderString = order.toString();
+        assertTrue(orderString.contains("Order ID:"));
+        assertTrue(orderString.contains("Size: Medium"));
+        assertFalse(orderString.contains("Grind Type: None"));
+        assertTrue(orderString.contains("Koolaid Type: Fruit Punch"));
+    }
+
+    @ParameterizedTest
+    @EnumSource(KoolaidType.class)
+    @DisplayName("Should accept all Koolaid type values")
+    void shouldAcceptAllKoolaidTypeValues(KoolaidType koolaidType) {
+        CoffeeOrder order = new CoffeeOrder(
+            Size.LARGE,
+            GrindType.NONE,
+            koolaidType,
+            new HashSet<>()
+        );
+        assertEquals(koolaidType, order.getBeverageType());
+        assertTrue(order.getBeverageType() instanceof KoolaidType);
+    }
 }
