@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * Represents a beverage order with size, grind type, beverage type, and optional additions.
  * Each order is assigned a unique identifier upon creation.
- * The order can be for either coffee or soda.
+ * The order can be for coffee, soda, or Koolaid.
  */
 public class CoffeeOrder {
     private final String orderId;
@@ -23,7 +23,7 @@ public class CoffeeOrder {
      * 
      * @param size the size of the beverage order (cannot be null)
      * @param grindType the grind type for the coffee (cannot be null)
-     * @param beverageType the type of beverage - either CoffeeType or SodaType (cannot be null)
+     * @param beverageType the type of beverage - CoffeeType, SodaType, or KoolaidType (cannot be null)
      * @param additions optional set of additions; null is treated as empty set
      * @throws NullPointerException if size, grindType, or beverageType is null
      */
@@ -66,7 +66,7 @@ public class CoffeeOrder {
     /**
      * Gets the beverage type for this order.
      * 
-     * @return the beverage type (either CoffeeType or SodaType)
+     * @return the beverage type (CoffeeType, SodaType, or KoolaidType)
      */
     public BeverageType getBeverageType() {
         return beverageType;
@@ -75,7 +75,7 @@ public class CoffeeOrder {
     /**
      * Gets the coffee type for this order.
      * 
-     * @return the coffee type, or null if this is a soda order
+     * @return the coffee type, or null if this is not a coffee order
      * @deprecated Use getBeverageType() instead for type-safe access
      */
     @Deprecated
@@ -113,7 +113,14 @@ public class CoffeeOrder {
         if (grindType != GrindType.NONE) {
             sb.append("  Grind Type: ").append(grindType).append("\n");
         }
-        String beverageLabel = beverageType instanceof CoffeeType ? "Coffee Type" : "Soda Type";
+        String beverageLabel;
+        if (beverageType instanceof CoffeeType) {
+            beverageLabel = "Coffee Type";
+        } else if (beverageType instanceof SodaType) {
+            beverageLabel = "Soda Type";
+        } else {
+            beverageLabel = "Koolaid Type";
+        }
         sb.append("  ").append(beverageLabel).append(": ").append(beverageType).append("\n");
         if (!additions.isEmpty()) {
             sb.append("  Additions: ");

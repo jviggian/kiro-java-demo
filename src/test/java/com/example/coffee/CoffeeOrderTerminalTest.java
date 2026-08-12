@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
@@ -308,6 +307,25 @@ class CoffeeOrderTerminalTest {
     }
 
     @Test
+    @DisplayName("Should handle all Koolaid type options")
+    void shouldHandleAllKoolaidTypeOptions() {
+        for (int i = 1; i <= KoolaidType.values().length; i++) {
+            OrderCollection collection = new OrderCollection();
+            // Create order with size 1, koolaid category (3), koolaid flavor i, no additions
+            String input = String.format("1\n1\n3\n%d\n\n3\n", i);
+            Scanner scanner = new Scanner(input);
+            CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(collection, scanner);
+            
+            terminal.run();
+            
+            assertEquals(1, collection.getOrderCount());
+            CoffeeOrder order = collection.getAllOrders().get(0);
+            assertTrue(order.getBeverageType() instanceof KoolaidType);
+            assertEquals(GrindType.NONE, order.getGrindType());
+        }
+    }
+
+    @Test
     @DisplayName("Should display order ID after creation")
     void shouldDisplayOrderIdAfterCreation() {
         String input = "1\n1\n1\n1\n1\n\n3\n";
@@ -337,5 +355,37 @@ class CoffeeOrderTerminalTest {
         assertTrue(order.getBeverageType() instanceof SodaType);
         String output = outputStream.toString();
         assertTrue(output.contains("Grind type automatically set to 'None' for soda orders"));
+    }
+
+    @Test
+    @DisplayName("Should automatically set grind type to NONE for Koolaid orders")
+    void shouldAutomaticallySetGrindTypeToNoneForKoolaidOrders() {
+        // Create a koolaid order: size 1, koolaid category (3), koolaid flavor 1, no additions
+        String input = "1\n1\n3\n1\n\n3\n";
+        Scanner scanner = new Scanner(input);
+        CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(orderCollection, scanner);
+        
+        terminal.run();
+        
+        assertEquals(1, orderCollection.getOrderCount());
+        CoffeeOrder order = orderCollection.getAllOrders().get(0);
+        assertEquals(GrindType.NONE, order.getGrindType());
+        assertTrue(order.getBeverageType() instanceof KoolaidType);
+        String output = outputStream.toString();
+        assertTrue(output.contains("Grind type automatically set to 'None' for Koolaid orders"));
+    }
+
+    @Test
+    @DisplayName("Should display Koolaid beverage category and flavor prompt")
+    void shouldDisplayKoolaidBeverageCategoryOption() {
+        String input = "1\n1\n3\n1\n\n3\n";
+        Scanner scanner = new Scanner(input);
+        CoffeeOrderTerminal terminal = new CoffeeOrderTerminal(orderCollection, scanner);
+        
+        terminal.run();
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("3. Koolaid"));
+        assertTrue(output.contains("Select Koolaid flavor:"));
     }
 }

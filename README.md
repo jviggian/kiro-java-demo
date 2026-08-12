@@ -1,6 +1,6 @@
 # Coffee Order System
 
-A terminal-based Java application for managing coffee and soda orders.
+A terminal-based Java application for managing coffee, soda, and Koolaid orders.
 
 ## Features
 
@@ -9,9 +9,10 @@ A terminal-based Java application for managing coffee and soda orders.
   - Grind type (Whole Bean, Coarse, Medium, Fine, Extra Fine, None)
   - Coffee types (Espresso, Arabica, Robusta, Blend)
   - Soda flavors (Pepsi, Coke, Sprite, Fanta, Dr Pepper, Mountain Dew)
+  - Koolaid flavors (Peach, Kiwi, Fruit Punch, Raspberry)
   - Additions (Milk, Sugar, Cream, Vanilla, Caramel)
 - View all orders
-- Automatic handling of grind type for soda orders (set to None)
+- Automatic handling of grind type for soda and Koolaid orders (set to None)
 - Comprehensive unit tests with high coverage
 
 ## Requirements
@@ -64,17 +65,20 @@ Verify coverage meets minimum threshold (90%):
 ```
 src/
 ├── main/java/com/example/coffee/
-│   ├── Addition.java           # Enum for order additions
-│   ├── CoffeeOrder.java        # Coffee order model
+│   ├── Addition.java            # Enum for order additions
+│   ├── BeverageType.java        # Sealed interface for beverage types
+│   ├── CoffeeOrder.java         # Beverage order model
 │   ├── CoffeeOrderTerminal.java # Terminal interface
-│   ├── CoffeeType.java         # Enum for coffee types
-│   ├── GrindType.java          # Enum for grind types
-│   ├── OrderCollection.java    # Order management
-│   └── Size.java               # Enum for order sizes
+│   ├── CoffeeType.java          # Enum for coffee types
+│   ├── GrindType.java           # Enum for grind types
+│   ├── KoolaidType.java         # Enum for Koolaid flavors
+│   ├── OrderCollection.java     # Order management
+│   ├── SodaType.java            # Enum for soda flavors
+│   └── Size.java                # Enum for order sizes
 └── test/java/com/example/coffee/
-    ├── CoffeeOrderTest.java    # Tests for CoffeeOrder
+    ├── CoffeeOrderTest.java     # Tests for CoffeeOrder
     ├── CoffeeOrderTerminalTest.java # Tests for terminal interface
-    ├── EnumTest.java           # Tests for all enums
+    ├── EnumTest.java            # Tests for all enums
     └── OrderCollectionTest.java # Tests for OrderCollection
 ```
 
@@ -82,60 +86,19 @@ src/
 
 When you run the application, you'll see a menu with the following options:
 
-1. **Create new order**: Follow the prompts to create a new coffee order
+1. **Create new order**: Follow the prompts to create a new beverage order
 2. **View all orders**: Display all orders that have been created
 3. **Exit**: Close the application
 
-### Example Session
-
-```
-=== Coffee Order System ===
-
-What would you like to do?
-1. Create new order
-2. View all orders
-3. Exit
-Enter your choice (1-3): 1
-
-=== Create New Order ===
-
-Select size:
-1. Small
-2. Medium
-3. Large
-Enter choice (1-3): 2
-
-Select coffee type:
-1. Espresso
-2. Arabica
-3. Robusta
-4. Blend
-5. Pepsi
-6. Coke
-7. Sprite
-8. Fanta
-9. Dr Pepper
-10. Mountain Dew
-Enter choice (1-10): 6
-
-Grind type automatically set to 'None' for soda orders.
-
-Select additions (comma-separated, or press Enter for none):
-1. Milk
-2. Sugar
-3. Cream
-4. Vanilla
-5. Caramel
-Enter choices (e.g., 1,3,5): 
-
-✓ Order created successfully!
-Order ID: 550e8400-e29b-41d4-a716-446655440000
-```
+When creating an order you first choose a beverage category (Coffee, Soda, or
+Koolaid). Grind type only applies to coffee orders; soda and Koolaid orders are
+automatically assigned a grind type of 'None'.
 
 ## Design
 
 The application follows object-oriented design principles:
 
+- **Sealed interface** (`BeverageType`) for a closed set of beverage categories
 - **Enums** for type-safe representation of fixed options
 - **Immutable collections** to protect data integrity
 - **Input validation** to ensure data quality
